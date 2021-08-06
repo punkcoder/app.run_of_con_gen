@@ -16,6 +16,9 @@ class Talks(models.Model):
     def __str__(self):
         return f'{self.date} {self.start} {self.name}'
 
+    class Meta:
+        verbose_name_plural = 'talks'
+
 
 class Event(models.Model):
     name = models.CharField(max_length=500, blank=False, null=False)
