@@ -3,15 +3,27 @@ from django.db import models
 # Create your models here.
 
 
+class Person(models.Model):
+    name = models.CharField(max_length=500,blank=False, null=False)
+    discord = models.CharField(max_length=500,blank=True, null=True)
+    email = models.CharField(max_length=500,blank=True, null=True)
+    is_volunteer = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_speaker = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.name} - {self.discord}'
+
+
 class Talks(models.Model):
     name = models.CharField(max_length=500,blank=False, null=False)
     date = models.DateField(blank=False, null=False)
     start = models.TimeField(blank=False, null=False)
     end = models.TimeField(blank=False, null=False)
-    mod1_discord = models.CharField(max_length=200, blank=True, null=True)
-    mod2_discord = models.CharField(max_length=200, blank=True, null=True)
+    talk_mod1 = models.ForeignKey(Person, on_delete=models.DO_NOTHING,related_name= "talk_mod1", null=True, blank=True)
+    talk_mod2 = models.ForeignKey(Person, on_delete=models.DO_NOTHING, related_name= "talk_mod2", null=True, blank=True)
     youtube_link = models.CharField(max_length=255, blank=True, null=True)
-    speaker = models.CharField(max_length=500, blank=True, null=True)
+    speaker = models.ForeignKey(Person, on_delete=models.DO_NOTHING, related_name="talk_speaker")
 
     def __str__(self):
         return f'{self.date} {self.start} {self.name}'
@@ -33,14 +45,19 @@ class Event(models.Model):
         return f'{self.date} {self.start} {self.name}'
 
 
+class Location(models.Model):
+    name = models.CharField(max_length=500, blank=False, null=False)
+
+    def __str__(self):
+        return f'{self.name}'
+
+
 class Shift(models.Model):
-    location = models.CharField(max_length=500, blank=False, null=False)
+    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     date = models.DateField(blank=False, null=False)
     start = models.TimeField(blank=False, null=False)
     end = models.TimeField(blank=False, null=False)
-    discord_username = models.CharField(max_length=255, blank=True, null=True)
-    name = models.CharField(max_length=255, blank=True, null=True)
-    email = models.CharField(max_length=255, blank=True, null=True)
+    shift_worker = models.ForeignKey(Person, on_delete=models.DO_NOTHING, related_name="talk_mod1", null=True, blank=True)
 
     def __str__(self):
         return f'{self.date} {self.start} {self.name}'

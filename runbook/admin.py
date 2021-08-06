@@ -1,16 +1,31 @@
 from django.contrib import admin
-from .models import Talks, Event, Shift
+from .models import Talks, Event, Shift, Location, Person
 
 # Register your models here.
+
+
 @admin.register(Talks)
 class TalksAdmin(admin.ModelAdmin):
-    list_display = ('start', 'name', 'speaker', 'mod1_discord', 'mod2_discord', 'youtube_link')
+    list_display = ('start', 'name', 'speaker', 'talk_mod1', 'talk_mod2', 'youtube_link')
+
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('start','name', 'mod1_discord','host', 'link')
 
+
 @admin.register(Shift)
 class ShiftAdmin(admin.ModelAdmin):
     list_display = ('location', 'start', 'end', 'discord_username', 'date')
     list_filter = ('location', 'date')
+
+
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    list_display = ('name', 'discord', 'email', 'is_volunteer', 'is_staff','is_speaker')
+    list_filter = ('is_volunteer', 'is_staff', 'is_speaker')
