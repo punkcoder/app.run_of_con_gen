@@ -11,12 +11,12 @@ class TalksAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('start','name', 'mod1_discord','host', 'link')
+    list_display = ('start','name', 'event_mod1', 'event_mod2', 'host', 'link')
 
 
 @admin.register(Shift)
 class ShiftAdmin(admin.ModelAdmin):
-    list_display = ('location', 'start', 'end', 'discord_username', 'date')
+    list_display = ('location', 'start', 'shift_worker', 'end', 'date')
     list_filter = ('location', 'date')
 
 
@@ -27,5 +27,5 @@ class LocationAdmin(admin.ModelAdmin):
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('name', 'discord', 'email', 'is_volunteer', 'is_staff','is_speaker')
+    list_display = ('name', 'discord', 'email', 'is_volunteer', 'is_staff', 'is_speaker')
     list_filter = ('is_volunteer', 'is_staff', 'is_speaker')

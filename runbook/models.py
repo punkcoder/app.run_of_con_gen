@@ -36,7 +36,8 @@ class Event(models.Model):
     name = models.CharField(max_length=500, blank=False, null=False)
     date = models.DateField(blank=False, null=False)
     start = models.TimeField(blank=False, null=False)
-    mod1_discord = models.CharField(max_length=200, blank=True, null=True)
+    event_mod1 = models.ForeignKey(Person, on_delete=models.DO_NOTHING,related_name= "event_mod1", null=True, blank=True)
+    event_mod2 = models.ForeignKey(Person, on_delete=models.DO_NOTHING, related_name="event_mod2", null=True, blank=True)
     host = models.CharField(max_length=255, blank=True, null=True)
     link = models.CharField(max_length=255, blank=True, null=True)
     event_text = models.TextField(blank=True, null=True)
@@ -57,7 +58,7 @@ class Shift(models.Model):
     date = models.DateField(blank=False, null=False)
     start = models.TimeField(blank=False, null=False)
     end = models.TimeField(blank=False, null=False)
-    shift_worker = models.ForeignKey(Person, on_delete=models.DO_NOTHING, related_name="talk_mod1", null=True, blank=True)
+    shift_worker = models.ForeignKey(Person, on_delete=models.DO_NOTHING, related_name="worker", null=True, blank=True)
 
     def __str__(self):
-        return f'{self.date} {self.start} {self.name}'
+        return f'{self.date} {self.start}'
