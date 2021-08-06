@@ -38,7 +38,7 @@ class Event(models.Model):
     start = models.TimeField(blank=False, null=False)
     event_mod1 = models.ForeignKey(Person, on_delete=models.DO_NOTHING,related_name= "event_mod1", null=True, blank=True)
     event_mod2 = models.ForeignKey(Person, on_delete=models.DO_NOTHING, related_name="event_mod2", null=True, blank=True)
-    host = models.CharField(max_length=255, blank=True, null=True)
+    host = models.ForeignKey(Person, on_delete=models.DO_NOTHING, related_name="host", null=True, blank=True)
     link = models.CharField(max_length=255, blank=True, null=True)
     event_text = models.TextField(blank=True, null=True)
 
