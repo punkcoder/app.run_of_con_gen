@@ -6,18 +6,21 @@ from .models import Talks, Event, Shift, Location, Person
 
 @admin.register(Talks)
 class TalksAdmin(admin.ModelAdmin):
-    list_display = ('start', 'name', 'speaker', 'talk_mod1', 'talk_mod2', 'youtube_link')
+    list_display = ('date', 'start', 'name', 'speaker', 'talk_mod1', 'talk_mod2', 'youtube_link')
 
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('start','name', 'event_mod1', 'event_mod2', 'host', 'link')
+    list_display = ('date', 'start','name', 'event_mod1', 'event_mod2', 'host', 'link')
+    list_filter = ('date',)
+    ordering = ('date', 'start')
 
 
 @admin.register(Shift)
 class ShiftAdmin(admin.ModelAdmin):
-    list_display = ('location', 'start', 'shift_worker', 'end', 'date')
+    list_display = ('location', 'date', 'start', 'shift_worker', 'end', 'date')
     list_filter = ('location', 'date')
+    ordering = ('date','start')
 
 
 @admin.register(Location)

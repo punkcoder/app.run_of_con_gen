@@ -16,12 +16,7 @@ def get_schedule(request):
     for talk in Talks.objects.all():
 
         pretime = (talk.start.replace(hour=talk.start.hour - 1, minute=40))
-        schedule.writerow([
-            pretime,
-            talk.talk_mod1.discord,
-            f"Send speaker {talk.speaker} to the DEFCON Q&A voice room.  ",
-            f'Test their A/V and your a/v  set all other people to mute',
-            ""])
+
 
         # set the pre time to -5 min
         pretime = (talk.start.replace(hour=talk.start.hour-1, minute=55))
@@ -45,6 +40,12 @@ def get_schedule(request):
                            ""])
 
         # set at runtime
+        schedule.writerow([
+            talk.end,
+            talk.talk_mod1.discord,
+            f"Send speaker {talk.speaker} to the DEFCON Q&A voice room.  ",
+            f'Test their A/V and your a/v  set all other people to mute',
+            ""])
 
         # set the pre time to 5 min before end.
         new_min = (talk.end.minute - 5) % 60
@@ -52,7 +53,7 @@ def get_schedule(request):
         schedule.writerow([pretime,
                            talk.talk_mod1.discord,
                            "Send viewers to the DEFCON Q&A Voice room",
-                           f'Thanks for attending "{talk.name}" by {talk.speaker.name}. Be sure to join us for the post-talk Q&A via #asv-talks-qa-voice. You can submit text-based questions about today’s talk and the Speaker will answer them verbally, so make sure your volume is up. This channel will remain open for discussion until our next talk begins. Feel free to continue the discussion in #asv-general-text.',
+                           f'Thanks for attending "{talk.name}" by {talk.speaker.name}. Be sure to join us for the post-talk Q&A via #asv-talks-general. You can submit text-based questions about today’s talk and the Speaker will answer them verbally, so make sure your volume is up. This channel will remain open for discussion until our next talk begins. Feel free to continue the discussion in #asv-general-text.',
                            ""])
 
     for evnt in Event.objects.all():
